@@ -38,10 +38,9 @@ function ADDrole() {
     },
 
     {
-      type: 'list',
+      type: 'input',
       name: 'rDept',
-      message: 'What department does this role belong to?',
-      choices: deptChoices
+      message: 'What department does this role belong to?'
     }
 ]
 
@@ -77,9 +76,9 @@ function UPDATErole() {
           .prompt(rQuestions)
       
           .then((data) => {
-            database.query(`UPDATE employee (role_id) VALUES (${newRole}) WHERE id = ${eName};`)
+            database.query(`UPDATE employee SET role_id = (${data.newRole}) WHERE id = ${data.eName};`)
     
-            console.log('Role succesffully added to the role table!');
+            console.log('Role succesffully updated in the role table!');
           });
     }
 
