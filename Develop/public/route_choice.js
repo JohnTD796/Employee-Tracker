@@ -8,9 +8,9 @@ function firstResponse(data) {
         case 'View All Departments':
             return GETdepartment();
         case 'View All Roles':
-            return GETemployee();
-        case 'View All Employees':
             return GETrole();
+        case 'View All Employees':
+            return GETemployee();
         case 'Add a Department':
             return ADDdepartment();
         case 'Add a Role':

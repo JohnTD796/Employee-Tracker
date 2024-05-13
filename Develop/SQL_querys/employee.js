@@ -38,17 +38,15 @@ function ADDemployee() {
       },
 
       {
-        type: 'list',
+        type: 'input',
         name: 'eRole',
-        message: 'What is the employees role ID?',
-        choices: roleChoices
+        message: 'What is the employees role ID?'
       },
 
       {
-        type: 'list',
+        type: 'input',
         name: 'eManager',
-        message: 'Please input the ID of the employees manager.',
-        choices: managerChoices
+        message: 'Please input the ID of the employees manager.'
       },
     ]
   
