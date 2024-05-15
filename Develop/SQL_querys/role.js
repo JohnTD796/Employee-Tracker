@@ -96,8 +96,6 @@ database.query(`SELECT id, title FROM role`).then(({rows}) => {
           .prompt(rQuestions)
       
           .then((data) => {
-            console.log(data.newRole)
-            console.log(data.eName)
             database.query(`UPDATE employee SET role_id = (${data.newRole}) WHERE id = ${data.eName};`)
     
             console.log('Role succesffully updated in the role table!');
