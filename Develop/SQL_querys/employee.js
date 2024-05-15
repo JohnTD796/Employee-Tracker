@@ -8,7 +8,6 @@ const database = new Pool(
     host: 'localhost',
     database: 'company_db'
   },
-  console.log(`Connected to the company_db database.`)
 )
 
 database.connect();
