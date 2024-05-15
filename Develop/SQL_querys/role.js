@@ -23,8 +23,14 @@ function GETrole() {
 };
 
 function ADDrole() {
-
-    rQuestions = [
+  
+  database.query(`SELECT id, dept_name FROM department`).then(({rows}) => {
+    rRows = rows.map((item) => ({   
+     name: item.dept_name,
+     value: item.id
+     }))
+    
+  rQuestions = [
     {
       type: 'input',
       name: 'rName',
@@ -38,11 +44,13 @@ function ADDrole() {
     },
 
     {
-      type: 'input',
+      type: 'list',
       name: 'rDept',
-      message: 'What department does this role belong to?'
+      message: 'What department does this role belong to?',
+      choices: rRows
     }
 ]
+
 
 inquirer
       .prompt(rQuestions)
@@ -52,7 +60,8 @@ inquirer
 
         console.log('Role succesffully added to the role table!');
       });
-}
+    }
+  )}
 
 function UPDATErole() {
 
