@@ -14,7 +14,7 @@ const database = new Pool(
 database.connect();
 
 function GETrole() {
-    database.query(`SELECT * FROM role;`, function (err, { rows }) {
+    database.query(`SELECT r.id, r.title, r.salary, d.dept_name as department FROM role as r JOIN department as d ON r.department_id = d.id;`, function (err, { rows }) {
         if (err) {
             console.log(err);
         }
@@ -56,19 +56,31 @@ inquirer
 
 function UPDATErole() {
 
+database.query(`SELECT id, title FROM role`).then(({rows}) => {
+   rRows = rows.map((item) => ({   
+    name: item.title,
+    value: item.id
+    }))
+    
+  database.query(`SELECT id, first_name, last_name FROM employee`).then(({rows}) => {
+    eRows = rows.map((item) => ({
+      name: item.first_name,
+      value: item.id
+    }))
+
     rQuestions = [
         {
           type: 'list',
           name: 'eName',
           message: 'What is the ID of the employee you want to change?',
-          choices: ['111', '222', '333']
+          choices: eRows
         },
     
         {
           type: 'list',
           name: 'newRole',
           message: 'select the employees new role?',
-          choices: ['11', '22', '33']
+          choices: rRows
         }
     ]
     
@@ -76,10 +88,14 @@ function UPDATErole() {
           .prompt(rQuestions)
       
           .then((data) => {
+            console.log(data.newRole)
+            console.log(data.eName)
             database.query(`UPDATE employee SET role_id = (${data.newRole}) WHERE id = ${data.eName};`)
     
             console.log('Role succesffully updated in the role table!');
           });
-    }
+        })
+      })
+}
 
 module.exports = { GETrole, ADDrole, UPDATErole };
