@@ -13,7 +13,11 @@ const database = new Pool(
 database.connect();
 
 function GETemployee() {
-  database.query(`SELECT e1.id, e1.first_name, e1.last_name, r.title, d.dept_name as department, r.salary, e.first_name as manager_first_name, e.last_name as manager_last_name FROM employee as e JOIN role as r ON e.role_id = r.id JOIN employee as e1 ON e.id = e1.manager_id JOIN department as d ON d.id = r.department_id;`, function (err, { rows }) {
+  database.query(`SELECT e1.id, e1.first_name, e1.last_name, r.title, d.dept_name as department, r.salary, e.first_name as manager_first_name, e.last_name as manager_last_name 
+    FROM employee as e  
+    JOIN employee as e1 ON e.id = e1.manager_id 
+    JOIN role as r ON e1.role_id = r.id
+    JOIN department as d ON d.id = r.department_id;`, function (err, { rows }) {
     if (err) {
       console.log(err);
     }
